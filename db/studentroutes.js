@@ -4,7 +4,8 @@ const {room}=require('./db.js')
 const {token}=require('./db.js')
 const bcrypt=require('bcrypt')
 const jwt=require('jsonwebtoken')
-route.get('/student',async (req,res)=>{
+const {auth}=require('./auth.js')
+route.get('/student',auth,async (req,res)=>{
       try{
          const data=await student.findAll()
          res.status(200).send(data)
@@ -15,6 +16,39 @@ route.get('/student',async (req,res)=>{
               error:"something went wrong while fetching students"
           })
       }
+})
+route.get('/student/logout',auth,async (req,res)=>{
+    try{
+        await token.destroy({
+            where:{
+                token:req.token
+            }
+        })
+        res.status(200).send(`token removed ${req.token}`)
+    }
+    catch(error){
+        console.log("error",error)
+        res.status(400).send({
+            error:"could not logout"
+        })
+    }
+})
+route.get('/student/:id',auth,async (req,res)=>{
+    try{
+        const data=await student.findAll({
+            where:{
+                id:req.params.id
+            },include:[room,token]
+        })
+        if(data.length===0) res.status(400).send('NO such user exist')
+        else res.status(200).send(data)
+    }
+    catch(error){
+        console.log("error",error)
+        res.status(400).send({
+            error:"something went wrong while fetching a user"
+        })
+    }
 })
 route.post('/student/login',async (req,res)=>{
       try{

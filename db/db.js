@@ -72,7 +72,7 @@ admin.hasMany(token)
 
 student.belongsTo(room)
 room.hasMany(student)
-db.sync({force:true})
+db.sync(/*{force:true}*/)
 .then(()=>console.log("created modals succesfully"))
 .catch((error)=>console.log("error:",error))
 module.exports={

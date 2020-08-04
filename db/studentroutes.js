@@ -109,4 +109,37 @@ route.post('/student/signup',async (req,res)=>{
         })
     }
 })
+route.post('/student/room',auth,async (req,res)=>{
+    try{
+      const data=await room.findAll({
+          where:{
+              room_no:req.body.room1
+          },include:student
+      })
+      console.log(data[0])
+      const id=data[0].id
+      console.log(data[0].id)
+      console.log(data[0].students)
+      console.log(data[0].students.length)
+      if(data[0].students.length<3){
+         await student.update({roomId:id},{
+             where:{
+                 id:req.body.id
+             }
+         })
+         res.status(200).send("Room booked")
+      }
+      else{
+          res.status(200).send({
+              error:"Room is already full"
+          })
+      }
+    }
+    catch(error){
+        console.log("error",error)
+        res.status(400).send({
+            error:"something went wrong while booking room"
+        })
+    }
+})
 module.exports={route}

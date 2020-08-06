@@ -57,11 +57,11 @@ route.post('/student/login',async (req,res)=>{
           const data=await student.findAll({where:{
                email:email
           }})
-          if(data.length===0) res.status(400).send("invalid credentials")
+          if(data.length===0) res.status(200).send("invalid credentials")
           else{
               //console.log(data[0].password)
               const val=bcrypt.compare(pass,data[0].password)
-              if(val===false) res.status(400).send('invalid credetials')
+              if(val===false) res.status(200).send('invalid credetials')
               else{
                   const id=data[0].id
                 const token2=jwt.sign(id.toString(),'123456789')
@@ -98,12 +98,12 @@ route.post('/student/signup',async (req,res)=>{
         })
         res.status(200).send(data)
     }
-    else res.status(400).send({
+    else res.status(200).send({
         error:"user with this email id already exist"
     })
     }
-    catch{
-        console.log('error',error)
+    catch(error){
+        console.log('error from here',error)
         res.status(400).send({
             error:"something went wrong while creating students"
         })

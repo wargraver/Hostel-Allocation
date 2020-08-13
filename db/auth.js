@@ -4,11 +4,14 @@ const {token}=require('./db.js')
 const {student}=require('./db.js')
 const auth=async function(req,res,next){
     try{
-        var head=req.header('Authorization')
+        var head=req.body.token
         console.log(head)
-        var head2=head.replace('Bearer ','')
-        var _id=jwt.verify(head2,'123456789')
-        console.log(_id)
+        //var head2=head.replace('Bearer ','')
+        if(head===undefined) head=req.query.token
+        console.log("head",head)
+        if(head!=undefined){
+        var _id=jwt.verify(head,'123456789')
+        console.log("id",_id)
         var data=await student.findAll({
             where:{
                 id:_id
@@ -18,23 +21,30 @@ const auth=async function(req,res,next){
         console.log(data[0].tokens[0].token)
         var flag=0
         for(var i=0;i<data[0].tokens.length;i++){
-            if(data[0].tokens[i].token===head2) flag=1
+            if(data[0].tokens[i].token===head) flag=1
         }
         if(flag===0){
-            res.status(400).send({
+          //  res.redirect('/student/login')
+           res.status(200).send({
                 error:"Login again"
             })
         }
         else{
-        req.token=head2
+        req.token=head
+        req.user=data
         next()
         //res.status(200).send(data)
         }
     }
+    else {
+    //res.redirect('/student/login')
+    res.status(200).send({error:"login agian"})
+}
+}
     catch(error){
         console.log("error",error)
-        res.status(400).send({
-            error:"Something went wrong while authenticating"
+        res.status(200).send({
+            error:"login again"
         })
     }
 }

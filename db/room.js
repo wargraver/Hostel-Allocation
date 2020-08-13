@@ -18,6 +18,18 @@ route.get('/room/:no',auth,async(req,res)=>{
         })
     }
 })
+route.get('/room',auth,async(req,res)=>{
+    try{
+       const data=await room.findAll({include:student})
+           res.status(200).send(data)
+    }
+    catch(error){
+        console.log("error",error)
+        res.status(400).send({
+            error:"something went wrong while fetching room"
+        })
+    }
+})
 route.post('/room',auth,async(req,res)=>{
     try{
     const valid=await room.findAll({
@@ -31,7 +43,7 @@ route.post('/room',auth,async(req,res)=>{
         })
         res.status(200).send(data)
     }
-    else res.status(400).send("room alreay exist")
+    else res.status(200).send({error:"room alreay exist"})
     }
     catch(error){
         console.log("error",error)

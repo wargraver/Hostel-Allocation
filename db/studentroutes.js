@@ -109,11 +109,11 @@ route.post('/student/signup',async (req,res)=>{
         })
     }
 })
-route.post('/student/room',auth,async (req,res)=>{
+route.get('/student/room/:room1',auth,async (req,res)=>{
     try{
       const data=await room.findAll({
           where:{
-              room_no:req.body.room1
+              room_no:req.params.room1
           },include:student
       })
       console.log(data[0])
@@ -124,7 +124,7 @@ route.post('/student/room',auth,async (req,res)=>{
       if(data[0].students.length<3){
          await student.update({roomId:id},{
              where:{
-                 id:req.body.id
+                 id:req.user.id
              }
          })
          res.status(200).send("Room booked")

@@ -1,4 +1,6 @@
-.card.filled{
+.btn.btn-primary.filled{
     background-color: red;
+    cursor: not-allowed;
+    pointer-events: none;
 
 }

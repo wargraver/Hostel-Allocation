@@ -9,7 +9,7 @@ function load(text,val,bool){
     return $(`<div class="col-sm-1 mt-2 ">
             <div class="card ${val}">
            <div class="child">
-           <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" aria-disabled=${bool}>
+           <button type="button" class="btn btn-primary ${val}" data-toggle="button" aria-pressed="false" autocomplete="off" aria-disabled=${bool}>
            ${text}
          </button>
            </div>
@@ -28,7 +28,7 @@ $(function(){
     let contain=$('#container')
     get_room(function(data){
        contain.empty()
-       console.log(data)
+       //console.log(data)
        for(let i=0;i<data.length;i++){
            if(data[i].students.length===3) contain.append(load(data[i].room_no,'filled',true))
            else contain.append(load(data[i].room_no,'vacant',false))
@@ -37,7 +37,7 @@ $(function(){
        // console.log($(clicked)[0].target.innerText,"first")
          //console.log($(clicked))
          let room=($(clicked)[0].target.innerText).toString()
-         console.log(room)
+        // console.log(room)
          $('#val').val(room)
          room=$('#val').val()
         $('#btn').on('click',()=>{

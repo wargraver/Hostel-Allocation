@@ -12,7 +12,7 @@ route.get('/room/:no',auth,async(req,res)=>{
            res.status(200).send(data)
     }
     catch(error){
-        console.log("error",error)
+       // console.log("error",error)
         res.status(400).send({
             error:"something went wrong while fetching room"
         })
@@ -24,7 +24,7 @@ route.get('/room',auth,async(req,res)=>{
            res.status(200).send(data)
     }
     catch(error){
-        console.log("error",error)
+       // console.log("error",error)
         res.status(400).send({
             error:"something went wrong while fetching room"
         })
@@ -46,7 +46,7 @@ route.post('/room',auth,async(req,res)=>{
     else res.status(200).send({error:"room alreay exist"})
     }
     catch(error){
-        console.log("error",error)
+      //  console.log("error",error)
         res.status(400).send({
             error:"can not create a room"
         })

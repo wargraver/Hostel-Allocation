@@ -24,7 +24,8 @@ route.get('/student/logout',auth,async (req,res)=>{
                 token:req.token
             }
         })
-        res.status(200).send(`token removed ${req.token}`)
+       // res.status(200).send(`token removed ${req.token}`)
+       res.redirect('http://localhost:3000/login.html')
     }
     catch(error){
         console.log("error",error)
@@ -65,7 +66,7 @@ route.post('/student/login',async (req,res)=>{
               else{
                   const id=data[0].id
                 const token2=jwt.sign(id.toString(),'123456789')
-                 console.log(token2)
+              //   console.log(token2)
                  const tok=await token.create({
                      token:token2,
                      studentId:data[0].id
@@ -75,7 +76,7 @@ route.post('/student/login',async (req,res)=>{
           }
       }
       catch(error){
-         console.log("error",error)
+      //   console.log("error",error)
          res.status(400).send({
              error:"something went wrong"
          })
@@ -111,24 +112,24 @@ route.post('/student/signup',async (req,res)=>{
 })
 route.get('/student/room/:room1',auth,async (req,res)=>{
     try{
-        console.log(req.params.room1)
+       // console.log(req.params.room1)
       const data=await room.findAll({
           where:{
               room_no:req.params.room1
           },include:student
       })
-      console.log(data[0])
+     // console.log(data[0])
       const id=data[0].id
-      console.log(data[0].id)
-      console.log(data[0].students)
-      console.log(data[0].students.length)
+     // console.log(data[0].id)
+     // console.log(data[0].students)
+    //  console.log(data[0].students.length)
       if(data[0].students.length<3){
         let check=await student.findAll({
             where:{
                 id:req.id
             }
         })
-        console.log("check",check[0].roomId)
+      //  console.log("check",check[0].roomId)
        if(check[0].roomId===null){
         await student.update({roomId:id},{
              where:{

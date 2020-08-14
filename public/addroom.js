@@ -13,7 +13,7 @@ $(function(){
     let no=$('#no')
     $('#btn1').click(()=>{
         create_room(no.val(),function(data){
-            console.log(data)
+          //  console.log(data)
             if(data.error) window.alert(data.error)
             else{
                 window.alert('added the room to db')

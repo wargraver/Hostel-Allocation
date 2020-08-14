@@ -17,8 +17,9 @@ const auth=async function(req,res,next){
                 id:_id
             }
         ,include:token})
-        console.log(data[0].tokens)
-        console.log(data[0].tokens[0].token)
+        console.log(data[0])
+        console.log(data[0].id)
+        //console.log(data[0].tokens[0].token)
         var flag=0
         for(var i=0;i<data[0].tokens.length;i++){
             if(data[0].tokens[i].token===head) flag=1
@@ -31,7 +32,8 @@ const auth=async function(req,res,next){
         }
         else{
         req.token=head
-        req.user=data
+        req.id=data[0].id
+        
         next()
         //res.status(200).send(data)
         }

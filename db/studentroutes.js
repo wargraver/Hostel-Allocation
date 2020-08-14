@@ -111,6 +111,7 @@ route.post('/student/signup',async (req,res)=>{
 })
 route.get('/student/room/:room1',auth,async (req,res)=>{
     try{
+        console.log(req.params.room1)
       const data=await room.findAll({
           where:{
               room_no:req.params.room1
@@ -122,12 +123,21 @@ route.get('/student/room/:room1',auth,async (req,res)=>{
       console.log(data[0].students)
       console.log(data[0].students.length)
       if(data[0].students.length<3){
-         await student.update({roomId:id},{
+        let check=await student.findAll({
+            where:{
+                id:req.id
+            }
+        })
+        console.log("check",check[0].roomId)
+       if(check[0].roomId===null){
+        await student.update({roomId:id},{
              where:{
-                 id:req.user.id
+                 id:req.id
              }
          })
          res.status(200).send("Room booked")
+        }
+        else res.status(200).send("room already alloted")
       }
       else{
           res.status(200).send({

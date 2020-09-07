@@ -8,7 +8,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(route)
 app.use(route2)
 app.use(express.static(path.join(__dirname,'./public')))
-const port=process.env.port || 3000
+const port=process.env.Port || 3000
 app.get('/',(req,res)=>{
     res.status(200).send("hello")
 })

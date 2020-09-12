@@ -25,7 +25,7 @@ route.get('/student/logout',auth,async (req,res)=>{
             }
         })
        // res.status(200).send(`token removed ${req.token}`)
-       res.redirect('http://localhost:3000/login.html')
+       res.redirect('/login.html')
     }
     catch(error){
         console.log("error",error)

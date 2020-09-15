@@ -1,0 +1,1 @@
+This is a hostel Booking Website where hostel students can book room and Hostel Administrator can manage hostel easily,this will save a lot of time for students to wait in a long queue and can book their room remotely as well.

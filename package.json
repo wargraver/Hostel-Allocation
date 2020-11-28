@@ -2,9 +2,11 @@
   "name": "hostel_booking_system",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
+  "engines":{
+    "node":"14.5.0"  },
   "scripts": {
-    "start": "node app.js"
+    "start": "nodes app.js"
   },
   "author": "",
   "license": "ISC",

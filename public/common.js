@@ -9,7 +9,7 @@ $(function(){
     $('#logout').on('click',()=>{
         logout((data)=>{
             console.log('logged out')
-            window.location.replace('http://localhost:3000/login.html')
+            window.location.replace('https://hostel-allocation.herokuapp.com/login.html')
         })
     })
 })

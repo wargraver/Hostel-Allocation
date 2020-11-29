@@ -18,7 +18,7 @@ $(function(){
         if(data.token2===undefined) window.alert("invalid credentials")
       else{
               window.localStorage.token=data.token2
-            window.location.replace('http://localhost:3000/bookingpage.html')
+            window.location.replace('https://hostel-allocation.herokuapp.com/bookingpage.html')
          }
          })
      })

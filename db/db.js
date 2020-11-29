@@ -1,7 +1,8 @@
 const Sequelize=require('sequelize')
 const {pass}=require('./pass.js');
-const db=new Sequelize('hostel_db','root',pass,{
-    dialect:'mysql'
+const db=new Sequelize({
+    dialect:'sqlite',
+    storage:__dirname+'/test.db'
 })
 const check=async function(){
 try {
